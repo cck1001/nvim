@@ -101,19 +101,6 @@ return {
       end
 
       opts.fold_virt_text_handler = handler
-
-      -- NOTE: https://github.com/kevinhwang91/nvim-ufo/issues/72
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities.textDocument.foldingRange = {
-        dynamicRegistration = false,
-        lineFoldingOnly = true,
-      }
-      local language_servers = require("lspconfig").util.available_servers() -- or list servers manually like {'gopls', 'clangd'}
-      for _, ls in ipairs(language_servers) do
-        require("lspconfig")[ls].setup({
-          capabilities = capabilities,
-        })
-      end
     end,
   },
   {
@@ -169,6 +156,16 @@ return {
         enabled = true,
       },
       servers = {
+        yamlls = {
+          capabilities = {
+            textDocument = {
+              foldingRange = {
+                dynamicRegistration = false,
+                lineFoldingOnly = true,
+              },
+            },
+          },
+        },
         gopls = {
           settings = {
             gopls = {
