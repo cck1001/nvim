@@ -1,4 +1,19 @@
 return {
+  {
+    "uga-rosa/translate.nvim",
+    keys = {
+      { "<leader>T", "<cmd>Translate zh<cr>", mode = { "n", "v" }, desc = "Translate ZH" },
+    },
+    opts = {
+      preset = {
+        command = {
+          google = {
+            args = { "-x", "socks5h://100.64.0.3:30501" },
+          },
+        },
+      },
+    },
+  },
   { "ellisonleao/gruvbox.nvim" },
   {
     "LazyVim/LazyVim",
