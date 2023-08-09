@@ -6,6 +6,7 @@ return {
       colorscheme = "deus",
     },
   },
+  { "mg979/vim-visual-multi" },
   {
     "shellRaining/hlchunk.nvim",
     init = function()
