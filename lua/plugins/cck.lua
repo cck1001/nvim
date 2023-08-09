@@ -1,9 +1,24 @@
 return {
-  { "theniceboy/nvim-deus" },
+  {
+    "uga-rosa/translate.nvim",
+    keys = {
+      { "<leader>T", "<cmd>Translate zh<cr>", mode = { "n", "v" }, desc = "Translate ZH" },
+    },
+    opts = {
+      preset = {
+        command = {
+          google = {
+            args = { "-x", "socks5h://100.64.0.3:30501" },
+          },
+        },
+      },
+    },
+  },
+  { "ellisonleao/gruvbox.nvim" },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "deus",
+      colorscheme = "gruvbox",
     },
   },
   { "mg979/vim-visual-multi" },
@@ -102,19 +117,6 @@ return {
       end
 
       opts.fold_virt_text_handler = handler
-
-      -- NOTE: https://github.com/kevinhwang91/nvim-ufo/issues/72
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities.textDocument.foldingRange = {
-        dynamicRegistration = false,
-        lineFoldingOnly = true,
-      }
-      local language_servers = require("lspconfig").util.available_servers() -- or list servers manually like {'gopls', 'clangd'}
-      for _, ls in ipairs(language_servers) do
-        require("lspconfig")[ls].setup({
-          capabilities = capabilities,
-        })
-      end
     end,
   },
   {
@@ -170,12 +172,48 @@ return {
         enabled = true,
       },
       servers = {
+        yamlls = {
+          capabilities = {
+            textDocument = {
+              foldingRange = {
+                dynamicRegistration = false,
+                lineFoldingOnly = true,
+              },
+            },
+          },
+        },
         gopls = {
           settings = {
             gopls = {
               analyses = {
                 composites = false,
                 fieldalignment = false,
+              },
+            },
+          },
+        },
+        tsserver = {
+          settings = {
+            javascript = {
+              inlayHints = {
+                includeInlayEnumMemberValueHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayVariableTypeHints = true,
+              },
+            },
+            typescript = {
+              inlayHints = {
+                includeInlayEnumMemberValueHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayVariableTypeHints = true,
               },
             },
           },
