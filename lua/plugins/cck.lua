@@ -24,8 +24,7 @@ return {
   { "mg979/vim-visual-multi" },
   {
     "shellRaining/hlchunk.nvim",
-    init = function()
-      vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, { pattern = "*", command = "EnableHL" })
+    config = function()
       require("hlchunk").setup({
         chunk = {
           enable = true,
@@ -35,7 +34,6 @@ return {
           },
         },
         indent = {
-          chars = { "│", "¦", "┆", "┊" },
           use_treesitter = false,
         },
         blank = {
@@ -81,13 +79,14 @@ return {
       },
     },
     event = "BufRead",
-    opts = function(_, opts)
+    init = function()
       vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
       vim.o.foldcolumn = "1"
       vim.o.foldlevel = 99
       vim.o.foldlevelstart = 99
       vim.o.foldenable = true
-
+    end,
+    opts = function(_, opts)
       local handler = function(virtText, lnum, endLnum, width, truncate)
         local newVirtText = {}
         local suffix = (" 󱞡 %d "):format(endLnum - lnum)
@@ -199,7 +198,7 @@ return {
                 includeInlayEnumMemberValueHints = true,
                 includeInlayFunctionLikeReturnTypeHints = true,
                 includeInlayFunctionParameterTypeHints = true,
-                includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+                includeInlayParameterNameHints = "literals", -- 'none' | 'literals' | 'all';
                 includeInlayParameterNameHintsWhenArgumentMatchesName = true,
                 includeInlayPropertyDeclarationTypeHints = true,
                 includeInlayVariableTypeHints = true,
@@ -210,7 +209,7 @@ return {
                 includeInlayEnumMemberValueHints = true,
                 includeInlayFunctionLikeReturnTypeHints = true,
                 includeInlayFunctionParameterTypeHints = true,
-                includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+                includeInlayParameterNameHints = "literals", -- 'none' | 'literals' | 'all';
                 includeInlayParameterNameHintsWhenArgumentMatchesName = true,
                 includeInlayPropertyDeclarationTypeHints = true,
                 includeInlayVariableTypeHints = true,
