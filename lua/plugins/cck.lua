@@ -171,16 +171,6 @@ return {
         enabled = true,
       },
       servers = {
-        yamlls = {
-          capabilities = {
-            textDocument = {
-              foldingRange = {
-                dynamicRegistration = false,
-                lineFoldingOnly = true,
-              },
-            },
-          },
-        },
         gopls = {
           settings = {
             gopls = {
